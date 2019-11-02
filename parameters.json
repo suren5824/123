@@ -1,0 +1,15 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "virtualMachines_Suri_name": {
+            "value": null
+        },
+        "disks_Suri_OsDisk_1_14c8f6055ba04eaeab361a28f6e3ffee_externalid": {
+            "value": null
+        },
+        "networkInterfaces_Suri_externalid": {
+            "value": null
+        }
+    }
+}

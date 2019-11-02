@@ -1,0 +1,67 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "virtualMachines_Suri_name": {
+            "defaultValue": "Suri",
+            "type": "String"
+        },
+        "disks_Suri_OsDisk_1_14c8f6055ba04eaeab361a28f6e3ffee_externalid": {
+            "defaultValue": "/subscriptions/479049f5-7f71-463e-94c4-3fd4384e3278/resourceGroups/myResourceGroup/providers/Microsoft.Compute/disks/Suri_OsDisk_1_14c8f6055ba04eaeab361a28f6e3ffee",
+            "type": "String"
+        },
+        "networkInterfaces_Suri_externalid": {
+            "defaultValue": "/subscriptions/479049f5-7f71-463e-94c4-3fd4384e3278/resourceGroups/myResourceGroup/providers/Microsoft.Network/networkInterfaces/Suri",
+            "type": "String"
+        }
+    },
+    "variables": {},
+    "resources": [
+        {
+            "type": "Microsoft.Compute/virtualMachines",
+            "apiVersion": "2019-03-01",
+            "name": "[parameters('virtualMachines_Suri_name')]",
+            "location": "eastus",
+            "properties": {
+                "hardwareProfile": {
+                    "vmSize": "Standard_DS1_v2"
+                },
+                "storageProfile": {
+                    "imageReference": {
+                        "publisher": "MicrosoftWindowsServer",
+                        "offer": "WindowsServer",
+                        "sku": "2016-Datacenter",
+                        "version": "latest"
+                    },
+                    "osDisk": {
+                        "osType": "Windows",
+                        "name": "[concat(parameters('virtualMachines_Suri_name'), '_OsDisk_1_14c8f6055ba04eaeab361a28f6e3ffee')]",
+                        "createOption": "FromImage",
+                        "caching": "ReadWrite",
+                        "managedDisk": {
+                            "id": "[parameters('disks_Suri_OsDisk_1_14c8f6055ba04eaeab361a28f6e3ffee_externalid')]"
+                        }
+                    },
+                    "dataDisks": []
+                },
+                "osProfile": {
+                    "computerName": "[parameters('virtualMachines_Suri_name')]",
+                    "adminUsername": "suri",
+                    "windowsConfiguration": {
+                        "provisionVMAgent": true,
+                        "enableAutomaticUpdates": true
+                    },
+                    "secrets": [],
+                    "allowExtensionOperations": true
+                },
+                "networkProfile": {
+                    "networkInterfaces": [
+                        {
+                            "id": "[parameters('networkInterfaces_Suri_externalid')]"
+                        }
+                    ]
+                }
+            }
+        }
+    ]
+}
